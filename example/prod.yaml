@@ -1,0 +1,9 @@
+nginx:
+  image:
+    tag: 1.14-alpine
+
+mysql:
+  port: 3308
+  helm:
+    releaseName: prod-release
+    namespace: prod

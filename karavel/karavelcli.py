@@ -14,7 +14,8 @@ def parser():
     template_p.add_argument(
         '-o', '--output', dest='output', help='output format: yaml, json')
     template_p.add_argument(
-        '-f', '--values', dest='values', action='append', help='path to the values file')
+        '-f', '--values', dest='values', action='append',
+        default=['values.yaml'], help='path to the values file')
     template_p.set_defaults(func=template_chart)
 
     subparsers = parser.add_subparsers(

@@ -1,0 +1,14 @@
+nginx:
+  image:
+    repository: nginx
+    tag: 1.15-alpine
+
+mysql:
+  port: 3307
+  protocol: TCP
+  helm:
+    releaseName: my-release
+    namespace: prod
+    imageTag: '5.7.14'
+    service:
+      type: NodePort
