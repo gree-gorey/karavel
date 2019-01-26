@@ -16,33 +16,33 @@ def template_chart(args):
     api = ApiClient()
     templates = []
     fnames = []
-    # try:
-    templates_dir = os.path.join(chart_dir, 'templates')
-    for fname in os.listdir(templates_dir):
-        full_path = os.path.join(templates_dir, fname)
-        if os.path.isfile(full_path):
-            parts = os.path.splitext(fname)
-            if parts[1] == '.py':
-                tname = parts[0]
-                spec = importlib.util.spec_from_file_location(tname, full_path)
-                mod = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(mod)
-                t = mod.template()
-                if not isinstance(t, (list,tuple)):
-                    t = [t]
-                templates.extend(t)
-                fnames += [full_path] * len(t)
-    t_sanitized = api.sanitize_for_serialization(templates)
-    output = '\n'.join([
-        '---\n{}\n{}'.format(
-            '# Source: {}'.format(os.path.relpath(fname ,current_dir)),
-            yaml.dump(t, default_flow_style=False)
-        )
-        for t, fname in zip(t_sanitized, fnames)
-    ])
-    print(output)
-    # except FileNotFoundError:
-    #     print('not found')
+    try:
+        templates_dir = os.path.join(chart_dir, 'templates')
+        for fname in os.listdir(templates_dir):
+            full_path = os.path.join(templates_dir, fname)
+            if os.path.isfile(full_path):
+                parts = os.path.splitext(fname)
+                if parts[1] == '.py':
+                    tname = parts[0]
+                    spec = importlib.util.spec_from_file_location(tname, full_path)
+                    mod = importlib.util.module_from_spec(spec)
+                    spec.loader.exec_module(mod)
+                    t = mod.template()
+                    if not isinstance(t, (list,tuple)):
+                        t = [t]
+                    templates.extend(t)
+                    fnames += [full_path] * len(t)
+        t_sanitized = api.sanitize_for_serialization(templates)
+        output = '\n'.join([
+            '---\n{}\n{}'.format(
+                '# Source: {}'.format(os.path.relpath(fname ,current_dir)),
+                yaml.dump(t, default_flow_style=False)
+            )
+            for t, fname in zip(t_sanitized, fnames)
+        ])
+        print(output)
+    except FileNotFoundError:
+        print('No templates directory found')
 
 
 def ensure(args):
