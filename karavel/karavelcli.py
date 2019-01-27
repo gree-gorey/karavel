@@ -22,7 +22,7 @@ def parser():
         title='list of subcommands', dest='service_command',
         metavar='subcommand')
     subparsers.add_parser(
-        'template', help='genaretes template', parents=[template_p])
+        'template', help='generates manifests from template', parents=[template_p])
 
     dep_p = argparse.ArgumentParser(add_help=False)
     dep_p.add_argument(
