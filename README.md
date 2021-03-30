@@ -1,5 +1,5 @@
 # karavel
-Yet another Kubernates tempalting tool, Python-based
+Yet another Kubernetes templating tool, Python-based
 
 # Usage
 
